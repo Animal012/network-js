@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximum Quality Difference</title>
+</head>
+<body>
+<h1>Введите массив целых чисел</h1>
+<input type="text" id="arrayInput" placeholder="Введите числа через запятую"><br>
+<button onclick="findMaxQualityDifference()">Найти максимальную качественную разницу</button>
+<h2>Результат: <span id="result"></span></h2>
+
+<script>
+    function findMaxQualityDifference() {
+        const input = document.getElementById('arrayInput').value;
+        const nums = input.split(',').map(Number);
+
+        let maxDifference = -Infinity;
+        const n = nums.length;
+
+        for (let w = 0; w < n; w++) {
+            for (let x = 0; x < n; x++) {
+                if (w === x) continue;
+                for (let y = 0; y < n; y++) {
+                    if (y === w || y === x) continue;
+                    for (let z = 0; z < n; z++) {
+                        if (z === w || z === x || z === y) continue;
+                        const product1 = nums[w] * nums[x];
+                        const product2 = nums[y] * nums[z];
+                        const difference = product1 - product2;
+                        if (difference > maxDifference) {
+                            maxDifference = difference;
+                        }
+                    }
+                }
+            }
+        }
+
+        document.getElementById('result').innerText = maxDifference;
+    }
+</script>
+</body>
+</html>

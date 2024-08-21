@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Diagonal Sum</title>
+</head>
+<body>
+<h1>Введите квадратную матрицу</h1>
+<textarea id="matrixInput" rows="5" cols="20"></textarea><br>
+<button onclick="calculateDiagonalSum()">Вычислить сумму диагоналей</button>
+<h2>Результат: <span id="result"></span></h2>
+
+<script>
+    function calculateDiagonalSum() {
+        const input = document.getElementById('matrixInput').value.trim();
+        const matrix = input.split('\n').map(row => row.split(' ').map(Number));
+
+        let primaryDiagonalSum = 0;
+        let secondaryDiagonalSum = 0;
+        const n = matrix.length;
+
+        for (let i = 0; i < n; i++) {
+            primaryDiagonalSum += matrix[i][i];
+            secondaryDiagonalSum += matrix[i][n - 1 - i];
+        }
+
+        let totalSum = primaryDiagonalSum + secondaryDiagonalSum;
+
+        // Если матрица имеет нечетный порядок, вычтем центральный элемент, так как он был посчитан дважды
+        if (n % 2 === 1) {
+            const centralIndex = Math.floor(n / 2);
+            totalSum -= matrix[centralIndex][centralIndex];
+        }
+
+        document.getElementById('result').innerText = totalSum;
+    }
+</script>
+</body>
+</html>
